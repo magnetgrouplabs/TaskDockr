@@ -9,6 +9,9 @@ env:
   DOTNET_VERSION: '8.0.x'
   PROJECT_PATH: 'TaskDockr/TaskDockr.csproj'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build and Release
@@ -79,33 +82,12 @@ jobs:
           $notes | Out-File -FilePath "RELEASE_BODY.md" -Encoding UTF8
 
       - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          release_name: TaskDockr ${{ github.ref_name }}
-          body_path: RELEASE_BODY.md
-          draft: false
-          prerelease: true
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ env.ARCHIVE_NAME }}
-          asset_name: ${{ env.ARCHIVE_NAME }}
-          asset_content_type: application/zip
-
-      - name: Upload executable only (optional)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./publish/TaskDockr.exe
-          asset_name: TaskDockr-${{ github.ref_name }}.exe
-          asset_content_type: application/octet-stream
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          gh release create ${{ github.ref_name }}
+          "${{ env.ARCHIVE_NAME }}"
+          "./publish/TaskDockr.exe#TaskDockr-${{ github.ref_name }}.exe"
+          --title "TaskDockr ${{ github.ref_name }}"
+          --notes-file RELEASE_BODY.md
+          --prerelease
