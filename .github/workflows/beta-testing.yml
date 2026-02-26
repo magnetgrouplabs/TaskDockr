@@ -1,0 +1,16 @@
+name: Beta Testing Workflow
+
+on:
+  issues:
+    types: [opened, labeled, reopened, edited]
+
+jobs:
+  ensure-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure beta labels exist
+        run: |
+          gh label create "Beta Feedback" --color f29f05 --force
+          gh label create "Beta Bug" --color e11d12 --force
+          gh label create "Beta Feature Request" --color 785fd7 --force
+          gh label create "Beta Support" --color 0573e6 --force

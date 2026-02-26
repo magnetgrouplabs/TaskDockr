@@ -1,0 +1,59 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Easing functions (defined before Storyboards that reference them) -->
+    <CubicEase x:Key="CubicEaseOut"   EasingMode="EaseOut" />
+    <CubicEase x:Key="CubicEaseIn"    EasingMode="EaseIn" />
+    <CubicEase x:Key="CubicEaseInOut" EasingMode="EaseInOut" />
+
+    <!-- Drag handle -->
+    <Style x:Key="DragHandleStyle" TargetType="Border">
+        <Setter Property="Background"  Value="Transparent" />
+        <Setter Property="Padding"     Value="8" />
+        <Setter Property="Opacity"     Value="0.5" />
+        <Setter Property="Cursor"      Value="SizeAll" />
+    </Style>
+
+    <!-- Drop zone highlight -->
+    <Style x:Key="DropZoneStyle" TargetType="Border">
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush"     Value="Transparent" />
+        <Setter Property="Background"      Value="Transparent" />
+    </Style>
+
+    <!-- Drop overlay (shown during drag) -->
+    <Style x:Key="DragOverlayStyle" TargetType="Border">
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Setter Property="Background" Value="{DynamicResource SystemAccentColorBrush}" />
+        <Setter Property="Opacity"    Value="0.15" />
+    </Style>
+
+    <!-- Drop indicator line -->
+    <Style x:Key="DropIndicatorStyle" TargetType="Border">
+        <Setter Property="Background"           Value="{DynamicResource SystemAccentColorBrush}" />
+        <Setter Property="Height"               Value="2" />
+        <Setter Property="Margin"               Value="8,4,8,4" />
+        <Setter Property="HorizontalAlignment"  Value="Stretch" />
+        <Setter Property="Opacity"              Value="0" />
+    </Style>
+
+    <!-- Drag-start opacity fade -->
+    <Storyboard x:Key="DragStartAnimation">
+        <DoubleAnimation
+            Storyboard.TargetProperty="Opacity"
+            From="1.0" To="0.7"
+            Duration="0:0:0.15"
+            EasingFunction="{StaticResource CubicEaseOut}" />
+    </Storyboard>
+
+    <!-- Drag-end opacity restore -->
+    <Storyboard x:Key="DragEndAnimation">
+        <DoubleAnimation
+            Storyboard.TargetProperty="Opacity"
+            From="0.7" To="1.0"
+            Duration="0:0:0.15"
+            EasingFunction="{StaticResource CubicEaseOut}" />
+    </Storyboard>
+
+</ResourceDictionary>

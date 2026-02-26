@@ -1,0 +1,114 @@
+name: Beta Release
+
+on:
+  push:
+    tags:
+      - 'v2026.*-beta'
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  PROJECT_PATH: 'TaskDockr/TaskDockr.csproj'
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+
+      - name: Build application
+        run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
+
+      - name: Publish application
+        run: dotnet publish ${{ env.PROJECT_PATH }} --configuration Release --output ./publish --self-contained true -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+
+      - name: Create distribution archive
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          $archiveName = "TaskDockr-$tag.zip"
+          Compress-Archive -Path ./publish/* -DestinationPath $archiveName
+          Write-Output "ARCHIVE_NAME=$archiveName" >> $env:GITHUB_ENV
+
+      - name: Generate release notes
+        id: release_notes
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          $version = $tag -replace '^v', ''
+          $notes = @"
+          ## TaskDockr Beta Release $version
+
+          ### What's New
+          This is a beta release for testing purposes. Please report any issues you encounter.
+
+          ### Installation
+          1. Download the ZIP file from the Assets section below
+          2. Extract the contents to a folder of your choice
+          3. Run `TaskDockr.exe`
+
+          ### System Requirements
+          - Windows 10 build 17763+ or Windows 11
+          - .NET 8.0 Runtime (or use self-contained build)
+
+          ### Files Included
+          - TaskDockr.exe - Main application executable
+          - Required DLLs and assets
+          - Configuration files
+
+          ---
+          **Note:** This is a pre-release version. Use at your own risk in production environments.
+          "@
+          
+          # Check if RELEASE_NOTES.md exists and append it
+          if (Test-Path "RELEASE_NOTES.md") {
+            $releaseNotes = Get-Content "RELEASE_NOTES.md" -Raw
+            $notes += "`n`n### Release Notes`n`n$releaseNotes"
+          }
+          
+          # Write to file for upload
+          $notes | Out-File -FilePath "RELEASE_BODY.md" -Encoding UTF8
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: TaskDockr ${{ github.ref_name }}
+          body_path: RELEASE_BODY.md
+          draft: false
+          prerelease: true
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ env.ARCHIVE_NAME }}
+          asset_name: ${{ env.ARCHIVE_NAME }}
+          asset_content_type: application/zip
+
+      - name: Upload executable only (optional)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./publish/TaskDockr.exe
+          asset_name: TaskDockr-${{ github.ref_name }}.exe
+          asset_content_type: application/octet-stream

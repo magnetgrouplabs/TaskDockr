@@ -107,7 +107,7 @@ _ReSharper*/
 *.JustCode
 
 # TeamCity
-*/
+.teamcity/
 
 # DotCover
 *.dotCover

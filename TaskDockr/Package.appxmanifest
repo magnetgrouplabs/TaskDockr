@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  IgnorableNamespaces="uap mp rescap desktop">
+
+  <Identity
+    Name="TaskDockr"
+    Publisher="CN=TaskDockr"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="7d3a2f1c-8b4e-4d9f-a6c3-e2f5b8d1a047" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>TaskDockr</DisplayName>
+    <PublisherDisplayName>TaskDockr</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <Description>A modern task management application with taskbar integration</Description>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.22621.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="en-US" />
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="TaskDockr.App">
+      <uap:VisualElements
+        DisplayName="TaskDockr"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="TaskDockr - Beta Version"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+      
+      <Extensions>
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="TaskDockr.exe" />
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+    <Capability Name="internetClient" />
+    <rescap:Capability Name="allowElevation" />
+    <uap:Capability Name="removableStorage" />
+  </Capabilities>
+</Package>

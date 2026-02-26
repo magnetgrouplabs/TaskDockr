@@ -7,32 +7,30 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 [![Beta](https://img.shields.io/badge/Status-Beta-orange?style=flat-square)]()
 
-> **A Windows 11 desktop utility that organizes and launches application shortcuts, files, URLs, and folders in named groups. Each group appears as a separate taskbar icon.**
-
-![TaskDockr Screenshot](docs/screenshot.png)
+> **A Windows 11 desktop utility that organizes and launches application shortcuts, files, URLs, and folders in named groups. Each group can be pinned to the taskbar for one-click access.**
 
 ---
 
-## ⚠️ Beta Disclaimer
+## Beta
 
-**TaskDockr is currently in beta.** This software is actively under development and may contain bugs or incomplete features. Beta releases are intended for testing and feedback purposes.
+**TaskDockr is currently in beta.** Expect bugs and breaking changes between releases.
 
-- **Backup your data regularly** - Configuration is stored in `%APPDATA%\TaskDockr\config.json`
-- **Expect changes** - Features and UI may change between releases
-- **Report issues** - Please report bugs via [GitHub Issues](https://github.com/magnetgrouplabs/TaskDockr/issues)
+- **Backup your data** — stored in `%APPDATA%\TaskDockr\config.json`
+- **Report issues** — [GitHub Issues](https://github.com/magnetgrouplabs/TaskDockr/issues)
 
 ---
 
 ## Features
 
-- **Named Groups** - Organize shortcuts into custom named groups
-- **Taskbar Integration** - Each group appears as its own taskbar icon
-- **Smart Popups** - Click taskbar icons to reveal shortcuts in edge-aligned popups
-- **Drag & Drop** - Add shortcuts by dragging from Windows Explorer
-- **Multiple Types** - Support for Applications, Files, URLs, and Folders
-- **Windows 11 Fluent Design** - Modern UI with WPF-UI (Lepo) theming
-- **Dark/Light Theme** - Automatic and manual theme switching
-- **Auto-Start** - Optionally start with Windows
+- **Named Groups** — Organize shortcuts into custom named groups
+- **Pin to Taskbar** — Pin any group to the Windows taskbar; clicking it opens a compact popup with that group's shortcuts
+- **Smart Popups** — Dynamically sized, edge-aligned popups positioned near the taskbar icon you clicked
+- **Drag & Drop** — Add shortcuts by dragging files from Windows Explorer
+- **Multiple Types** — Applications, Files, URLs, and Folders
+- **Custom Group Icons** — Font Awesome glyphs with custom colors, or image files
+- **Windows 11 Fluent Design** — Dark theme with WPF-UI (Lepo) controls
+- **Single-Click Launch** — Click any shortcut tile to launch it immediately
+- **Right-Click Context Menu** — Launch, edit, or delete shortcuts from the popup
 
 ---
 
@@ -47,24 +45,19 @@
 
 ## Installation
 
-### Beta Releases
+### Download
 
-1. **Download** the latest beta release from the [Releases](https://github.com/magnetgrouplabs/TaskDockr/releases) page
-2. **Extract** the ZIP file to your preferred location
-3. **Run** `TaskDockr.exe`
+1. Download the latest release from [Releases](https://github.com/magnetgrouplabs/TaskDockr/releases)
+2. Extract the ZIP file
+3. Run `TaskDockr.exe`
 
-### Building from Source
+### Build from Source
 
 ```bash
-# Clone the repository
 git clone https://github.com/magnetgrouplabs/TaskDockr.git
 cd TaskDockr
-
-# Build the project
 dotnet build TaskDockr/TaskDockr.csproj --configuration Release
-
-# Run the executable
-.\TaskDockr\bin\Release\net8.0-windows\TaskDockr.exe
+./TaskDockr/bin/Release/net8.0-windows/TaskDockr.exe
 ```
 
 ---
@@ -102,10 +95,10 @@ Configuration is stored in:
 
 ## Usage
 
-1. **Create a Group** - Click "Add Group" and give it a name
-2. **Add Shortcuts** - Use the "+" button or drag & drop from Explorer
-3. **Launch** - Click the taskbar icon to reveal shortcuts
-4. **Launch Items** - Click any shortcut in the popup to launch it
+1. **Create a Group** — Click "+" in the sidebar
+2. **Add Shortcuts** — Use "Add Shortcut" button or drag & drop from Explorer
+3. **Pin to Taskbar** — Click the pin icon next to a group, then pin the desktop shortcut to your taskbar
+4. **Launch** — Click the pinned taskbar icon to open the group popup, then click any shortcut
 
 ---
 

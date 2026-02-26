@@ -1,0 +1,217 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:TaskDockr.Converters">
+
+    <!-- Converters -->
+    <converters:StringToVisibilityConverter   x:Key="StringToVisibilityConverter" />
+    <converters:NullToVisibilityConverter     x:Key="NullToVisibilityConverter" />
+    <converters:CountToShortcutsTextConverter x:Key="CountToShortcutsConverter" />
+    <converters:TargetPathToIconConverter     x:Key="TargetPathToIconConverter" />
+
+    <!-- ===== Button Styles ===== -->
+
+    <!-- Icon button (square, subtle background for visibility) -->
+    <Style x:Key="IconButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        <Setter Property="Padding" Value="6" />
+        <Setter Property="MinWidth" Value="32" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorSecondaryBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Default (outlined) button -->
+    <Style x:Key="DefaultButtonStyle" TargetType="Button">
+        <Setter Property="Background"      Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="Foreground"      Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush"     Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        <Setter Property="Padding"         Value="16,8" />
+        <Setter Property="FontSize"        Value="14" />
+        <Setter Property="FontWeight"      Value="SemiBold" />
+        <Setter Property="Cursor"          Value="Hand" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
+            </Trigger>
+        <Trigger Property="IsPressed" Value="True">
+          <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+
+    <!-- Accent (filled) button -->
+    <Style x:Key="AccentButtonStyle" TargetType="Button">
+        <Setter Property="Background"      Value="{DynamicResource SystemAccentColorBrush}" />
+        <Setter Property="Foreground"      Value="White" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding"         Value="16,8" />
+        <Setter Property="FontSize"        Value="14" />
+        <Setter Property="FontWeight"      Value="SemiBold" />
+        <Setter Property="Cursor"          Value="Hand" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource SystemAccentColorLight2Brush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1Brush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Subtle (text-like) button -->
+    <Style x:Key="SubtleButtonStyle" TargetType="Button">
+        <Setter Property="Background"                Value="Transparent" />
+        <Setter Property="Foreground"                Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="BorderThickness"           Value="0" />
+        <Setter Property="Padding"                   Value="12,8" />
+        <Setter Property="FontSize"                  Value="14" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Cursor"                    Value="Hand" />
+        <Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True">
+          <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+        </Trigger>
+        <Trigger Property="IsPressed" Value="True">
+          <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+
+    <!-- ===== TextBox ===== -->
+    <Style x:Key="FluentTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background"      Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
+        <Setter Property="Foreground"      Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="BorderBrush"     Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding"         Value="10,6" />
+        <Setter Property="FontSize"        Value="14" />
+    </Style>
+
+    <!-- ===== ComboBox ===== -->
+    <Style x:Key="FluentComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="Background"      Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
+        <Setter Property="Foreground"      Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="BorderBrush"     Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding"         Value="10,6" />
+        <Setter Property="FontSize"        Value="14" />
+    </Style>
+
+    <!-- ===== Group card style (Border) ===== -->
+    <Style x:Key="ModernCardStyle" TargetType="Border">
+        <Setter Property="Background"      Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush"     Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius"    Value="8" />
+        <Setter Property="Padding"         Value="12" />
+    </Style>
+
+    <!-- ===== ListBoxItem style ===== -->
+    <Style x:Key="FluentListBoxItemStyle" TargetType="ListBoxItem">
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="Margin" Value="0,2" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ===== ContextMenu Style ===== -->
+    <Style x:Key="FluentContextMenuStyle" TargetType="ContextMenu">
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="MinWidth" Value="140" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContextMenu">
+                    <Border 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="8"
+                        Padding="{TemplateBinding Padding}">
+                        <ScrollViewer CanContentScroll="True" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ===== MenuItem Style ===== -->
+    <Style x:Key="FluentMenuItemStyle" TargetType="MenuItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="MenuItem">
+                    <Border 
+                        x:Name="Border"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="4"
+                        Padding="{TemplateBinding Padding}">
+                        <ContentPresenter 
+                            ContentSource="Header"
+                            RecognizesAccessKey="True"
+                            TextBlock.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ===== Separator Style for Menu ===== -->
+    <Style x:Key="FluentMenuSeparatorStyle" TargetType="Separator">
+        <Setter Property="Background" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        <Setter Property="Height" Value="1" />
+        <Setter Property="Margin" Value="8,4" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Separator">
+                    <Rectangle Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

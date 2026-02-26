@@ -1,0 +1,26 @@
+<Application
+    x:Class="TaskDockr.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tb="http://www.hardcodet.net/taskbar"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
+
+    <Application.Resources>
+        <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ui:ControlsDictionary />
+        <ResourceDictionary Source="/Styles/FluentDesignTheme.xaml" />
+        <ResourceDictionary Source="/Styles/DarkTheme.xaml" />
+        <ResourceDictionary Source="/Styles/Styles.xaml" />
+        <ResourceDictionary Source="/Styles/DragDropStyles.xaml" />
+        <ResourceDictionary Source="/Styles/PopoutStyles.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+            <!-- System tray icon (Hardcodet.Wpf.TaskbarNotification) -->
+            <tb:TaskbarIcon x:Key="TrayIcon"
+                            IconSource="/Assets/AppIcon.ico"
+                            ToolTipText="TaskDockr"
+                            Visibility="Visible" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
