@@ -26,13 +26,10 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore dependencies
-        run: dotnet restore ${{ env.PROJECT_PATH }}
-
-      - name: Build application
-        run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
+        run: dotnet restore ${{ env.PROJECT_PATH }} -r win-x64
 
       - name: Publish application
-        run: dotnet publish ${{ env.PROJECT_PATH }} --configuration Release --output ./publish --self-contained true -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+        run: dotnet publish ${{ env.PROJECT_PATH }} --configuration Release --output ./publish --self-contained true -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --no-restore
 
       - name: Create distribution archive
         shell: pwsh
